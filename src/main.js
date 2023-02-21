@@ -31,7 +31,7 @@ async function getTrendMoviesPreview() {
     trendingPreviewMoviesContainer.appendChild(movieContainer)
   })
 }
-getTrendMoviesPreview()
+
 
 async function getCategoriesPreview() {
   const { data } = await api('genre/movie/list')
@@ -56,4 +56,4 @@ async function getCategoriesPreview() {
     previewCategoriesContainer.appendChild(categoryContainer)
   })
 }
-getCategoriesPreview()
+
