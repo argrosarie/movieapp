@@ -85,7 +85,7 @@ function categoriesPage() {
 
   const [_, categoryData] = location.hash.split('=')
   const [ categoryId, categoryName ] = categoryData.split('-')
-  headerCategoryTitle.innerHTML = categoryName
+  headerCategoryTitle.innerHTML = decodeURIComponent(categoryName)
   getMoviesByCategory(categoryId)
 }
 function homePage() {
