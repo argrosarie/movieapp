@@ -8,12 +8,8 @@ const api = axios.create({
   },
 })
 
-async function getTrendMoviesPreview() {
-  const { data } = await api('trending/movie/day')
-
-  trendingMoviesPreviewList.innerHTML = ""
-
-  const movies = data.results
+function createMovies(movies, container) {
+  container.innerHTML = ''
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div')
     movieContainer.classList.add('movie-container')
@@ -26,8 +22,15 @@ async function getTrendMoviesPreview() {
       'https://image.tmdb.org/t/p/w300/' + movie.poster_path,
     )
     movieContainer.appendChild(movieImg)
-    trendingMoviesPreviewList.appendChild(movieContainer)
+    container.appendChild(movieContainer)
   })
+}
+
+async function getTrendMoviesPreview() {
+  const { data } = await api('trending/movie/day')
+  const movies = data.results
+  createMovies(movies, trendingMoviesPreviewList)
+ 
 }
 
 async function getCategoriesPreview() {
@@ -58,14 +61,14 @@ async function getCategoriesPreview() {
 async function getMoviesByCategory(id) {
   const { data } = await api('discover/movie', {
     params: {
-      with_genres: id
-    }
+      with_genres: id,
+    },
   })
 
-  trendingMoviesPreviewList.innerHTML = ""
+  trendingMoviesPreviewList.innerHTML = ''
 
   const movies = data.results
-  genericSection.innerHTML = ""
+  genericSection.innerHTML = ''
 
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div')
