@@ -24,6 +24,8 @@ function navigator() {
   } else {
     homePage()
   }
+  document.body.scrollTo = 0;
+  document.documentElement.scrollTop = 0
 }
 
 function trendsPage() {
