@@ -8,6 +8,15 @@ const api = axios.create({
   },
 })
 
+const lazyLoader = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const URL = entry.target.getAttribute('data-img')
+      entry.target.setAttribute('src', URL)
+    }
+  })
+})
+
 function createMovies(movies, container) {
   container.innerHTML = ''
   movies.forEach((movie) => {
@@ -21,9 +30,10 @@ function createMovies(movies, container) {
     movieImg.classList.add('movie-img')
     movieImg.setAttribute('alt', movie.title)
     movieImg.setAttribute(
-      'src',
+      'data-img',
       'https://image.tmdb.org/t/p/w300/' + movie.poster_path,
     )
+    lazyLoader.observe(movieImg)
     movieContainer.appendChild(movieImg)
     container.appendChild(movieContainer)
   })
@@ -109,9 +119,9 @@ async function getMovieById(id) {
 }
 
 async function getRelatedMoviesId(id) {
-    const { data } = await api(`/movie/${id}/similar`)
-    const relatedMovies = data.results
+  const { data } = await api(`/movie/${id}/similar`)
+  const relatedMovies = data.results
 
-    createMovies(relatedMovies, relatedMoviesContainer)
-    relatedMoviesContainer.scrollTo(0, 0);
+  createMovies(relatedMovies, relatedMoviesContainer)
+  relatedMoviesContainer.scrollTo(0, 0)
 }
