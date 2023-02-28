@@ -17,7 +17,7 @@ const lazyLoader = new IntersectionObserver((entries) => {
   })
 })
 
-function createMovies(movies, container) {
+function createMovies(movies, container, lazyLoad = false) {
   container.innerHTML = ''
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div')
@@ -30,10 +30,13 @@ function createMovies(movies, container) {
     movieImg.classList.add('movie-img')
     movieImg.setAttribute('alt', movie.title)
     movieImg.setAttribute(
-      'data-img',
+      lazyLoad ? 'data-img' : 'src',
       'https://image.tmdb.org/t/p/w300/' + movie.poster_path,
     )
-    lazyLoader.observe(movieImg)
+    if (lazyLoad) {
+      lazyLoader.observe(movieImg)
+    }
+
     movieContainer.appendChild(movieImg)
     container.appendChild(movieContainer)
   })
@@ -64,7 +67,7 @@ function createCategories(categories, container) {
 async function getTrendMoviesPreview() {
   const { data } = await api('trending/movie/day')
   const movies = data.results
-  createMovies(movies, trendingMoviesPreviewList)
+  createMovies(movies, trendingMoviesPreviewList, true)
 }
 
 async function getCategoriesPreview() {
