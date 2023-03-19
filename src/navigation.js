@@ -1,3 +1,4 @@
+let maxPage;
 let page = 1;
 let infinitScroll;
 searchFormBtn.addEventListener('click', () => {
@@ -74,6 +75,7 @@ function searchPage() {
   movieDetailSection.classList.add('inactive');
   const [_, query] = location.hash.split('=');
   getMoviesBySearch(query);
+  infinitScroll = getPaginatedMoviesBySearch(query);
 }
 function movieDetailsPage() {
   headerSection.classList.add('header-container--long')
