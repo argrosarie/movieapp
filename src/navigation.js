@@ -113,6 +113,7 @@ function categoriesPage() {
   const [ categoryId, categoryName ] = categoryData.split('-')
   headerCategoryTitle.innerHTML = decodeURIComponent(categoryName)
   getMoviesByCategory(categoryId)
+  infinitScroll = getPaginatedMoviesByCategory(categoryId);
 }
 function homePage() {
   headerSection.classList.remove('header-container--long')
