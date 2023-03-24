@@ -29,9 +29,7 @@ function createMovies(
   movies.forEach((movie) => {
     const movieContainer = document.createElement('div')
     movieContainer.classList.add('movie-container')
-    movieContainer.addEventListener('click', () => {
-      location.hash = '#movie=' + movie.id
-    })
+  
 
     const movieImg = document.createElement('img')
     movieImg.classList.add('movie-img')
@@ -40,6 +38,9 @@ function createMovies(
       lazyLoad ? 'data-img' : 'src',
       'https://image.tmdb.org/t/p/w300/' + movie.poster_path,
     )
+    movieImg.addEventListener('click', () => {
+      location.hash = '#movie=' + movie.id
+    })
     movieImg.addEventListener('error', () => {
       movieImg.setAttribute(
         'src',
