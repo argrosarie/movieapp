@@ -46,11 +46,19 @@ function createMovies(
         'https://static.platzi.com/static/images/error/img404.png',
       )
     })
+
+    const movieBtn = document.createElement('button')
+    movieBtn.classList.add('movie-btn')
+    movieBtn.addEventListener('click', () => {
+      movieBtn.classList.toggle('movie-btn--liked')
+    })
+
     if (lazyLoad) {
       lazyLoader.observe(movieImg)
     }
 
     movieContainer.appendChild(movieImg)
+    movieContainer.appendChild(movieBtn)
     container.appendChild(movieContainer)
   })
 }
